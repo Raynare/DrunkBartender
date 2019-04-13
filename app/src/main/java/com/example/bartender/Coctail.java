@@ -6,11 +6,7 @@ public class Coctail {
     private int price;
     private IngredientAdded[] ingredients;
 
-    public Coctail()
-    {
-    }
-
-    public Coctail(int name, int imageId, IngredientAdded[] ingredients)
+    Coctail(int name, int imageId, IngredientAdded[] ingredients)
     {
         this.name = name;
         this.imageId = imageId;
@@ -28,15 +24,15 @@ public class Coctail {
         return name;
     }
 
-    public int getImageId() {
+    int getImageId() {
         return imageId;
     }
 
-    public int getPrice() {
+    int getPrice() {
         return price;
     }
 
-    public IngredientAdded[] getIngredients() {
+    IngredientAdded[] getIngredients() {
         return ingredients;
     }
 }

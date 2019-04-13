@@ -12,7 +12,6 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.FrameLayout;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
