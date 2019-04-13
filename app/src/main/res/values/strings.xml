@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Bartender</string>
+    <string name="vodka">Vodka</string>
+    <string name="orange_juice">Orange juice</string>
+    <string name="screwdriver">Screwdriver</string>
+    <string name="blue_curacao">Blue curacao</string>
+    <string name="lemonade">Lemonade</string>
+    <string name="blue_lagoon">Blue lagoon</string>
+    <string name="gin">Gin</string>
+    <string name="monkey_gland">Monkey Gland</string>
+    <string name="sparkling_wine">Sparkling wine</string>
+    <string name="mimosa">Mimosa</string>
+    <string name="bucks_fizz">Bucks fizz</string>
+</resources>
