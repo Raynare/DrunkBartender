@@ -7,6 +7,26 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <Button
+        android:id="@+id/barDownBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:text="v"
+        android:textAllCaps="false"
+        tools:layout_editor_absoluteX="687dp"
+        tools:layout_editor_absoluteY="371dp" />
+
+    <Button
+        android:id="@+id/barUpBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_weight="1"
+        android:text="^"
+        android:textSize="18sp"
+        tools:layout_editor_absoluteX="687dp"
+        tools:layout_editor_absoluteY="331dp" />
+
     <ImageView
         android:id="@+id/barImg"
         android:layout_width="wrap_content"
@@ -24,10 +44,12 @@
     <LinearLayout
         android:id="@+id/barLayout"
         android:layout_width="739dp"
-        android:layout_height="568dp"
+        android:layout_height="653dp"
         android:orientation="horizontal"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp"></LinearLayout>
+        tools:layout_editor_absoluteY="0dp">
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/ingredientsLayout"

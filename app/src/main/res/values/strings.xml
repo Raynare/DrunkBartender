@@ -11,4 +11,10 @@
     <string name="sparkling_wine">Sparkling wine</string>
     <string name="mimosa">Mimosa</string>
     <string name="bucks_fizz">Bucks fizz</string>
+    <string name="coca_cola">Coca-Cola</string>
+    <string name="whiskey">Whiskey</string>
+    <string name="whiskey_cola">Whiskey-Cola</string>
+    <string name="soda">Soda</string>
+    <string name="tonic">Tonic</string>
+    <string name="gin_tonic">Gin-Tonic</string>
 </resources>

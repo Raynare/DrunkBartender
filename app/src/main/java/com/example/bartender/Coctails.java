@@ -22,10 +22,16 @@ class Coctails {
                         new IngredientAdded(ingredients.GetIngredientByName(R.string.sparkling_wine), 75)}),
                 new Coctail(R.string.bucks_fizz, R.drawable.mimosa, new IngredientAdded[]{
                         new IngredientAdded(ingredients.GetIngredientByName(R.string.orange_juice), 100),
-                        new IngredientAdded(ingredients.GetIngredientByName(R.string.sparkling_wine), 50)})
+                        new IngredientAdded(ingredients.GetIngredientByName(R.string.sparkling_wine), 50)}),
+                new Coctail(R.string.whiskey_cola, R.drawable.whiskey_cola, new IngredientAdded[]{
+                        new IngredientAdded(ingredients.GetIngredientByName(R.string.whiskey), 50),
+                        new IngredientAdded(ingredients.GetIngredientByName(R.string.coca_cola), 100)}),
+                new Coctail(R.string.gin_tonic, R.drawable.gin_tonic, new IngredientAdded[]{
+                        new IngredientAdded(ingredients.GetIngredientByName(R.string.gin), 50),
+                        new IngredientAdded(ingredients.GetIngredientByName(R.string.tonic), 100)})
         };
 
-        /* Whiskey+cola, Whiskey Sour, Gin+tonik, Grayhound, Silver bullet, Highball */
+        /* Whiskey Sour, Gin+tonik, Grayhound, Silver bullet, Highball */
     }
 
     Coctail GetRandomCoctail()

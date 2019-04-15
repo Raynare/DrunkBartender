@@ -18,7 +18,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    private final int CELLS_COUNT = 8;
+    private final int CELLS_COUNT = 10;
     int width;
     int height;
     int money = 0;
@@ -27,16 +27,16 @@ public class MainActivity extends AppCompatActivity {
     Coctail currentCoctail;
     CheckBox[] currentCheckboxes;
     LinearLayout ingredientsLayout;
+    LinearLayout barLayout;
     ImageView coctailImg;
     TextView moneyTxt;
-    ConstraintLayout mainLayout;
+    int firstIngredient = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        mainLayout = findViewById(R.id.mainLayout);
 
         ingredientsLayout = findViewById(R.id.ingredientsLayout);
         Display display = getWindowManager().getDefaultDisplay();
@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         display.getSize(size);
         width = size.x;
         height = size.y;
+        barLayout = findViewById(R.id.barLayout);
+        barLayout.setY((float) (height * 0.75));
         currentCoctail = coctails.GetRandomCoctail();
 
         PrepareBarLayout();
@@ -69,6 +71,31 @@ public class MainActivity extends AppCompatActivity {
         ImageView shopImg = findViewById(R.id.shopImg);
         shopImg.setY(50);
         shopImg.setX(width - 200);
+
+        TextView barUpBtn = findViewById(R.id.barUpBtn);
+        barUpBtn.setY(height - 240);
+        barUpBtn.setX(width - 100);
+        barUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (firstIngredient > 0)
+                {
+                    firstIngredient -= CELLS_COUNT;
+                    PrepareBarLayout();
+                }
+            }
+        });
+
+        TextView barDownBtn = findViewById(R.id.barDownBtn);
+        barDownBtn.setY(height - 200);
+        barDownBtn.setX(width - 100);
+        barDownBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                firstIngredient += CELLS_COUNT;
+                PrepareBarLayout();
+            }
+        });
     }
 
     private void SetMoneyText()
@@ -78,22 +105,24 @@ public class MainActivity extends AppCompatActivity {
 
     private void PrepareBarLayout()
     {
+        barLayout.removeAllViews();
+
         int availableHeight = (int) (height * 0.3);
         int availableWidth = width - 100;
         int cellWidth = (int) ((float) availableWidth / (float) CELLS_COUNT);
 
         Ingredient[] ingredientsAll = ingredients.getAllIngredients();
-        for (int i = 0; i < ingredientsAll.length; ++i)
+        for (int i = firstIngredient; i < firstIngredient + CELLS_COUNT; ++i)
         {
+            if (i >= ingredientsAll.length) {
+                return;
+            }
+
             final Ingredient currentIngredient = ingredientsAll[i];
             ImageView img = new ImageView(this);
-            img.setX(i * cellWidth);
-            img.setY(height - availableHeight);
-            img.setMaxWidth(15);
-            img.setMaxHeight(50);
-            //img.setScaleType(ImageView.ScaleType.FIT_XY);
+            img.setScaleType(ImageView.ScaleType.FIT_XY);
             img.setImageResource(currentIngredient.getImageId());
-            mainLayout.addView(img);
+            barLayout.addView(img);
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
