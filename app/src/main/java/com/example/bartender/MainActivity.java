@@ -1,5 +1,6 @@
 package com.example.bartender;
 
+import android.content.ContentValues;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.pm.ActivityInfo;
@@ -44,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         ingredients = new AllIngredients();
         coctails = new Coctails();
+        dbHelper = new DBHelper(this);
+
+        InitGlobals();
 
         ingredientsLayout = findViewById(R.id.ingredientsLayout);
         Display display = getWindowManager().getDefaultDisplay();
@@ -106,6 +110,37 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         });
     }
 
+    private void InitGlobals()
+    {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        Cursor c = db.query("data", null, null, null, null, null, null);
+
+        if (c.moveToFirst()) {
+            int nameIdColIndex = c.getColumnIndex("name");
+            int valueIdColIndex = c.getColumnIndex("value");
+
+            do {
+                final String name = c.getString(nameIdColIndex);
+                final int value = c.getInt(valueIdColIndex);
+
+                if (name.equals("level"))
+                {
+                    Globals.level = value;
+                }
+                else if (name.equals("money"))
+                {
+                    Globals.money = value;
+                }
+                else if (name.equals("exp"))
+                {
+                    Globals.exp = value;
+                }
+            } while (c.moveToNext());
+
+            c.close();
+        }
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -130,13 +165,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     {
         int maxExp = Globals.level * 100;
 
-        levelTxt.setText(String.format(Locale.ENGLISH,"Level: %d (%d/%d)", Globals.level, exp, maxExp));
+        levelTxt.setText(String.format(Locale.ENGLISH,"Level: %d (%d/%d)", Globals.level, Globals.exp, maxExp));
     }
 
     public void PrepareBarLayout()
     {
         barLayout.removeAllViews();
-        dbHelper = new DBHelper(this);
 
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor c = db.query("ingredients", null, null, null, null, null, null);
@@ -172,17 +206,31 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         SetMoneyText();
 
         int maxExp = Globals.level * 100;
-        exp += 10;
-        if (exp >= maxExp)
+        Globals.exp += 10;
+        if (Globals.exp >= maxExp)
         {
             Globals.level++;
-            exp -= maxExp;
+            Globals.exp -= maxExp;
         }
         SetLevelText();
 
         currentCoctail = coctails.GetRandomCoctail();
         coctailImg.setImageResource(currentCoctail.getImageId());
         PrepareIngredientLayout();
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        ContentValues cvMoney = new ContentValues();
+        cvMoney.put("value", Globals.money);
+        db.update("data", cvMoney, "name = 'money'", new String[]{});
+
+        ContentValues cvLevel = new ContentValues();
+        cvLevel.put("value", Globals.level);
+        db.update("data", cvLevel,"name = 'level'", new String[]{});
+
+        ContentValues cvExp = new ContentValues();
+        cvExp.put("value", Globals.exp);
+        db.update("data", cvExp,"name = 'exp'", new String[]{});
     }
 
     private void PrepareIngredientLayout()
@@ -234,5 +282,4 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     private TextView moneyTxt;
     private TextView levelTxt;
-    private int exp = 0;
 }

@@ -56,6 +56,11 @@ public class LotView {
                 db.insert("ingredients", null, cv);
 
                 Globals.money -= price;
+                ContentValues cvMoney = new ContentValues();
+                cvMoney.put("name", "money");
+                cvMoney.put("value", Globals.money);
+                db.update("data", cvMoney,"name = 'money'", new String[]{});
+
                 mainActivity.SetMoneyText();
                 mainActivity.PrepareBarLayout();
             }
