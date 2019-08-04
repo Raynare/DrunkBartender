@@ -2,19 +2,25 @@
     <string name="app_name">Bartender</string>
     <string name="vodka">Vodka</string>
     <string name="orange_juice">Orange juice</string>
-    <string name="screwdriver">Screwdriver</string>
     <string name="blue_curacao">Blue curacao</string>
     <string name="lemonade">Lemonade</string>
-    <string name="blue_lagoon">Blue lagoon</string>
     <string name="gin">Gin</string>
-    <string name="monkey_gland">Monkey Gland</string>
     <string name="sparkling_wine">Sparkling wine</string>
-    <string name="mimosa">Mimosa</string>
-    <string name="bucks_fizz">Bucks fizz</string>
     <string name="coca_cola">Coca-Cola</string>
     <string name="whiskey">Whiskey</string>
-    <string name="whiskey_cola">Whiskey-Cola</string>
     <string name="soda">Soda</string>
     <string name="tonic">Tonic</string>
-    <string name="gin_tonic">Gin-Tonic</string>
+    <string name="red_bull">Red bull</string>
+
+    <string name="screwdriver">Screwdriver</string>
+    <string name="blue_lagoon">Blue lagoon</string>
+    <string name="monkey_gland">Monkey Gland</string>
+    <string name="mimosa">Mimosa</string>
+    <string name="bucks_fizz">Bucks fizz</string>
+    <string name="whiskey_cola">Whiskey with cola</string>
+    <string name="gin_tonic">Gin with tonic</string>
+
+    <string name="vodka_tonic">Vodka with tonic</string>
+    <string name="martini_tonic">Martini with tonic</string>
+    <string name="martini_orange">Martini orange</string>
 </resources>

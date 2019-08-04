@@ -1,6 +1,6 @@
 package com.example.bartender;
 
-class Ingredient {
+public class Ingredient {
     private int name;
     private int imageId;
     private int price;
@@ -17,15 +17,15 @@ class Ingredient {
         this.volume = volume;
     }
 
-    int getName() {
+    public int getName() {
         return name;
     }
 
-    int getImageId() {
+    public int getImageId() {
         return imageId;
     }
 
-    int getPrice() {
+    public int getPrice() {
         return price;
     }
 

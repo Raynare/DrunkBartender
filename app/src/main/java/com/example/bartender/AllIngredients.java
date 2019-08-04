@@ -1,9 +1,9 @@
 package com.example.bartender;
 
-class AllIngredients {
+public class AllIngredients {
     private Ingredient allIngredients[];
 
-    AllIngredients()
+    public AllIngredients()
     {
         allIngredients = new Ingredient[] {
                 new Ingredient(R.string.vodka, R.drawable.vodka, 90, 500),
@@ -15,7 +15,8 @@ class AllIngredients {
                 new Ingredient(R.string.coca_cola, R.drawable.coca_cola, 7, 2000),
                 new Ingredient(R.string.whiskey, R.drawable.whiskey, 128, 500),
                 new Ingredient(R.string.soda, R.drawable.soda, 7, 2000),
-                new Ingredient(R.string.tonic, R.drawable.tonic, 6, 1000)
+                new Ingredient(R.string.tonic, R.drawable.tonic, 6, 1000),
+                new Ingredient(R.string.red_bull, R.drawable.red_bull, 15, 500)
         };
     }
 
@@ -29,7 +30,7 @@ class AllIngredients {
         return new Ingredient();
     }
 
-    Ingredient[] getAllIngredients() {
+    public Ingredient[] getAllIngredients() {
         return allIngredients;
     }
 }

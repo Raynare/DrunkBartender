@@ -1,29 +1,34 @@
 package com.example.bartender;
 
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Display;
 import android.content.pm.ActivityInfo;
-
 import android.graphics.Point;
 import android.graphics.Color;
-
+import android.view.Display;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.CheckBox;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
+
+import com.example.bartender.Models.ShopView;
 
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity {
-    private final int CELLS_COUNT = 10;
+
+public class MainActivity extends AppCompatActivity implements OnClickListener {
+    private final int CELLS_COUNT = 16; // FOR NOW, BETTER NOT MORE THAN 10!!!
     int width;
     int height;
     int money = 0;
-    AllIngredients ingredients = new AllIngredients();
-    Coctails coctails = new Coctails();
+    AllIngredients ingredients;
+    Coctails coctails;
     Coctail currentCoctail;
     CheckBox[] currentCheckboxes;
     LinearLayout ingredientsLayout;
@@ -31,12 +36,16 @@ public class MainActivity extends AppCompatActivity {
     ImageView coctailImg;
     TextView moneyTxt;
     int firstIngredient = 0;
+    DBHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        ingredients = new AllIngredients();
+        coctails = new Coctails();
 
         ingredientsLayout = findViewById(R.id.ingredientsLayout);
         Display display = getWindowManager().getDefaultDisplay();
@@ -61,16 +70,11 @@ public class MainActivity extends AppCompatActivity {
         moneyTxt.setX(50);
         moneyTxt.setY(50);
         SetMoneyText();
-        /*coctailImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ingredientsLayout.setVisibility(ingredientsLayout.getVisibility() == View.VISIBLE ? View.INVISIBLE : View.VISIBLE);
-            }
-        });*/
 
         ImageView shopImg = findViewById(R.id.shopImg);
         shopImg.setY(50);
         shopImg.setX(width - 200);
+        shopImg.setOnClickListener(this);
 
         TextView barUpBtn = findViewById(R.id.barUpBtn);
         barUpBtn.setY(height - 240);
@@ -98,40 +102,57 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.shopImg:
+                ScrollView shopLayout = new ShopView(this, this).Get();
+
+                AlertDialog.Builder shopDialog = new AlertDialog.Builder(this)
+                        .setView(shopLayout);
+                shopDialog.show();
+                break;
+            default:
+                break;
+        }
+    }
+
     private void SetMoneyText()
     {
         moneyTxt.setText(String.format(Locale.ENGLISH,"Money: %d $", money));
     }
 
-    private void PrepareBarLayout()
+    public void PrepareBarLayout()
     {
         barLayout.removeAllViews();
+        dbHelper = new DBHelper(this);
 
-        int availableHeight = (int) (height * 0.3);
-        int availableWidth = width - 100;
-        int cellWidth = (int) ((float) availableWidth / (float) CELLS_COUNT);
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor c = db.query("ingredients", null, null, null, null, null, null);
+        if (c.moveToFirst()) {
+            int ingedientIdColIndex = c.getColumnIndex("ingredientId");
 
-        Ingredient[] ingredientsAll = ingredients.getAllIngredients();
-        for (int i = firstIngredient; i < firstIngredient + CELLS_COUNT; ++i)
-        {
-            if (i >= ingredientsAll.length) {
-                return;
-            }
+            do {
+                final int ingredientId = c.getInt(ingedientIdColIndex);
+                final Ingredient currentIngredient = ingredients.getAllIngredients()[ingredientId];
 
-            final Ingredient currentIngredient = ingredientsAll[i];
-            ImageView img = new ImageView(this);
-            img.setScaleType(ImageView.ScaleType.FIT_XY);
-            img.setImageResource(currentIngredient.getImageId());
-            barLayout.addView(img);
-            img.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (CheckIngredients(currentIngredient.getImageId()))
-                    {
-                        UpdateCoctail();
+                ImageView img = new ImageView(this);
+                img.setScaleType(ImageView.ScaleType.FIT_XY);
+                img.setImageResource(currentIngredient.getImageId());
+                barLayout.addView(img);
+                img.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (CheckIngredients(currentIngredient.getImageId()))
+                        {
+                            UpdateCoctail();
+                        }
                     }
-                }
-            });
+                });
+                barLayout.addView(img);
+            } while (c.moveToNext());
+
+            c.close();
         }
     }
 

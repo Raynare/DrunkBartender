@@ -31,7 +31,7 @@ class Coctails {
                         new IngredientAdded(ingredients.GetIngredientByName(R.string.tonic), 100)})
         };
 
-        /* Whiskey Sour, Gin+tonik, Grayhound, Silver bullet, Highball */
+        /* Whiskey Sour, Grayhound, Silver bullet, Highball, Mojito,  */
     }
 
     Coctail GetRandomCoctail()
