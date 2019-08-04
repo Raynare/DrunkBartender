@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Bartender</string>
+
     <string name="vodka">Vodka</string>
     <string name="orange_juice">Orange juice</string>
+    <string name="beer">Beer</string>
     <string name="blue_curacao">Blue curacao</string>
     <string name="lemonade">Lemonade</string>
     <string name="gin">Gin</string>
@@ -19,6 +21,7 @@
     <string name="bucks_fizz">Bucks fizz</string>
     <string name="whiskey_cola">Whiskey with cola</string>
     <string name="gin_tonic">Gin with tonic</string>
+    <string name="energy_vodka">Energy vodka</string>
 
     <string name="vodka_tonic">Vodka with tonic</string>
     <string name="martini_tonic">Martini with tonic</string>

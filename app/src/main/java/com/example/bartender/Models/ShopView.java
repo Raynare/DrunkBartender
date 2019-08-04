@@ -26,10 +26,7 @@ public class ShopView {
             LotView lotView = new LotView(context,
                                           mainActivity,
                                           i,
-                                          ingredients[i].getName(),
-                                          ingredients[i].getPrice(),
-                                          ingredients[i].getImageId(),
-                                          ingredients[i].getVolume());
+                                          ingredients[i]);
 
             shopLayout.addView(lotView.Get());
         }

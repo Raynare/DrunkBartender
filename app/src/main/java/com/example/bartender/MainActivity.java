@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     LinearLayout ingredientsLayout;
     LinearLayout barLayout;
     ImageView coctailImg;
-    TextView moneyTxt;
     int firstIngredient = 0;
     DBHelper dbHelper;
 
@@ -69,6 +68,12 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         moneyTxt.setX(50);
         moneyTxt.setY(50);
         SetMoneyText();
+
+        levelTxt = findViewById(R.id.levelTxt);
+        levelTxt.setBackgroundColor(Color.GRAY);
+        levelTxt.setX(50);
+        levelTxt.setY(150);
+        SetLevelText();
 
         ImageView shopImg = findViewById(R.id.shopImg);
         shopImg.setY(50);
@@ -121,6 +126,13 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         moneyTxt.setText(String.format(Locale.ENGLISH,"Money: %d $", Globals.money));
     }
 
+    private void SetLevelText()
+    {
+        int maxExp = Globals.level * 100;
+
+        levelTxt.setText(String.format(Locale.ENGLISH,"Level: %d (%d/%d)", Globals.level, exp, maxExp));
+    }
+
     public void PrepareBarLayout()
     {
         barLayout.removeAllViews();
@@ -158,6 +170,16 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     {
         Globals.money += currentCoctail.getPrice();
         SetMoneyText();
+
+        int maxExp = Globals.level * 100;
+        exp += 10;
+        if (exp >= maxExp)
+        {
+            Globals.level++;
+            exp -= maxExp;
+        }
+        SetLevelText();
+
         currentCoctail = coctails.GetRandomCoctail();
         coctailImg.setImageResource(currentCoctail.getImageId());
         PrepareIngredientLayout();
@@ -167,7 +189,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     {
         ingredientsLayout.setX((float) (width * 0.35));
         ingredientsLayout.setY((float) (height * 0.55));
-        /*ingredientsLayout.setVisibility(View.INVISIBLE);*/
         ingredientsLayout.removeAllViews();
 
         IngredientAdded[] ingredients = currentCoctail.getIngredients();
@@ -210,4 +231,8 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         return done;
     }
+
+    private TextView moneyTxt;
+    private TextView levelTxt;
+    private int exp = 0;
 }

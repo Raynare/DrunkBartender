@@ -1,23 +1,24 @@
 package com.example.bartender;
 
 public class Coctail {
-    private int name;
-    private int imageId;
-    private int price;
-    private IngredientAdded[] ingredients;
-
     Coctail(int name, int imageId, IngredientAdded[] ingredients)
     {
         this.name = name;
         this.imageId = imageId;
         this.ingredients = ingredients;
 
-        int price = 0;
+        price = 0;
+        level = 1;
         for (IngredientAdded ingredient : ingredients)
         {
             price += ingredient.getPrice();
+
+            int ingredientLevel = ingredient.getIngredient().getLevel();
+            if (ingredientLevel > level)
+            {
+                level = ingredientLevel;
+            }
         }
-        this.price = (int)(price * 1.2);
     }
 
     public int getName() {
@@ -32,7 +33,15 @@ public class Coctail {
         return price;
     }
 
+    int getLevel() { return level; }
+
     IngredientAdded[] getIngredients() {
         return ingredients;
     }
+
+    private int name;
+    private int imageId;
+    private int price;
+    private int level;
+    private IngredientAdded[] ingredients;
 }

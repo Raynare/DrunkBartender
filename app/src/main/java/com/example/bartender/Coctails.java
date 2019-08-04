@@ -28,15 +28,27 @@ class Coctails {
                         new IngredientAdded(ingredients.GetIngredientByName(R.string.coca_cola), 100)}),
                 new Coctail(R.string.gin_tonic, R.drawable.gin_tonic, new IngredientAdded[]{
                         new IngredientAdded(ingredients.GetIngredientByName(R.string.gin), 50),
-                        new IngredientAdded(ingredients.GetIngredientByName(R.string.tonic), 100)})
+                        new IngredientAdded(ingredients.GetIngredientByName(R.string.tonic), 100)}),
+                new Coctail(R.string.energy_vodka, R.drawable.energy_vodka, new IngredientAdded[]{
+                        new IngredientAdded(ingredients.GetIngredientByName(R.string.vodka), 50),
+                        new IngredientAdded(ingredients.GetIngredientByName(R.string.red_bull), 150)
+                }),
+                new Coctail(R.string.vodka, R.drawable.pure_vodka, new IngredientAdded[]{
+                        new IngredientAdded(ingredients.GetIngredientByName(R.string.vodka), 50)
+                })
         };
-
-        /* Whiskey Sour, Grayhound, Silver bullet, Highball, Mojito,  */
     }
 
     Coctail GetRandomCoctail()
     {
         int randomNumber = (int) (Math.random() * allCoctails.length);
-        return allCoctails[randomNumber];
+        Coctail coctail = allCoctails[randomNumber];
+
+        if (coctail.getLevel() > Globals.level)
+        {
+            return GetRandomCoctail();
+        }
+
+        return coctail;
     }
 }
