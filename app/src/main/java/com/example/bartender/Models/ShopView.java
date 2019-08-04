@@ -10,7 +10,7 @@ import com.example.bartender.MainActivity;
 
 public class ShopView {
     public ShopView(Context context, MainActivity mainActivity) {
-        AllIngredients ingredients = new AllIngredients();
+        AllIngredients allIngredients = new AllIngredients();
 
         m_layout = new ScrollView(context);
 
@@ -19,10 +19,17 @@ public class ShopView {
         GridLayout shopLayout = new GridLayout(context);
         shopLayout.setColumnCount(5);
         shopLayout.setLayoutParams(params);
-        for (Ingredient ingredient : ingredients.getAllIngredients())
+
+        Ingredient[] ingredients = allIngredients.getAllIngredients();
+        for (int i = 0; i < ingredients.length; ++i)
         {
-            String name = context.getResources().getString(ingredient.getName());
-            LotView lotView = new LotView(context, mainActivity, name, ingredient.getPrice(), ingredient.getImageId());
+            LotView lotView = new LotView(context,
+                                          mainActivity,
+                                          i,
+                                          ingredients[i].getName(),
+                                          ingredients[i].getPrice(),
+                                          ingredients[i].getImageId(),
+                                          ingredients[i].getVolume());
 
             shopLayout.addView(lotView.Get());
         }

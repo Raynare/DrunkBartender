@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-class DBHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteOpenHelper {
 
     public DBHelper(Context context) {
         super(context, "database", null, 1);
@@ -14,8 +14,12 @@ class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table ingredients ("
                 + "id integer primary key,"
-                + "intedientId integer,"
+                + "ingredientId integer,"
                 + "volume integer" + ");");
+
+        db.execSQL("create table data ("
+                + "name text,"
+                + "value text" + ");");
     }
 
     @Override

@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     private final int CELLS_COUNT = 16; // FOR NOW, BETTER NOT MORE THAN 10!!!
     int width;
     int height;
-    int money = 0;
     AllIngredients ingredients;
     Coctails coctails;
     Coctail currentCoctail;
@@ -117,9 +116,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         }
     }
 
-    private void SetMoneyText()
+    public void SetMoneyText()
     {
-        moneyTxt.setText(String.format(Locale.ENGLISH,"Money: %d $", money));
+        moneyTxt.setText(String.format(Locale.ENGLISH,"Money: %d $", Globals.money));
     }
 
     public void PrepareBarLayout()
@@ -149,7 +148,6 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
                         }
                     }
                 });
-                barLayout.addView(img);
             } while (c.moveToNext());
 
             c.close();
@@ -158,7 +156,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     private void UpdateCoctail()
     {
-        money += currentCoctail.getPrice();
+        Globals.money += currentCoctail.getPrice();
         SetMoneyText();
         currentCoctail = coctails.GetRandomCoctail();
         coctailImg.setImageResource(currentCoctail.getImageId());

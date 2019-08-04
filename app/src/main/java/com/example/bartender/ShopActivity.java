@@ -19,7 +19,7 @@ public class ShopActivity extends AppCompatActivity {
         for (Ingredient ingredient : ingredients.getAllIngredients())
         {
             String name = getResources().getString(ingredient.getName());
-            shopLayout.addView(new LotView(this, name, ingredient.getPrice(), ingredient.getImageId()).Get());
+            //shopLayout.addView(new LotView(this, name, ingredient.getPrice(), ingredient.getImageId()).Get());
         }
     }
 }

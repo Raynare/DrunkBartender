@@ -29,7 +29,7 @@ public class Ingredient {
         return price;
     }
 
-    int getVolume() {
+    public int getVolume() {
         return volume;
     }
 }
